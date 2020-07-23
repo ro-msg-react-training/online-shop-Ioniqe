@@ -2,16 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Product from './components/Product';
 import Stock from './components/Stock';
 import * as serviceWorker from './serviceWorker';
 
-const products: Product[] = [];
+
+const products = [
+  { name: "chocolate", category: "sweets", price: "2 lei" },
+  { name: "candy", category: "sweets", price: "1 lei" },
+  { name: "milk", category: "dairy", price: "3 lei" }
+];
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Product name="Chocolate" category="Sweets" price="2 lei" />
     <Stock products={products}/>
   </React.StrictMode>,
   document.getElementById('root')
