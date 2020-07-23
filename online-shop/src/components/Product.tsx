@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Style.css';
 
-interface ProductProps {
-  name: string;
-  category?: string;
-  price?: string;
-};
+function Product(props: { name: string, category?: string, price: string }) {
+  const initialPrice = Number(props.price.match('[0-9]+'));
+  const currency = props.price.match('[a-z]+');
 
-const Product: React.FC<ProductProps> = ({ name, category, price }) => (
-  <div className="center">
-    <h2>Details for {name}:</h2>
-    <h3>category: {category}</h3>
-    <h3>price: {price}</h3>
-  </div>
-);
+  const [newPrice, increasePrice] = useState(initialPrice);
+  const handleClick = () => increasePrice(newPrice => newPrice + 1);
+
+  return (
+    <div className="center">
+      <h2>Details for {props.name}:</h2>
+      <h3>category: {props.category}</h3>
+
+      <div>
+        <h3>price: {newPrice} {currency}</h3>
+        <button onClick={handleClick}>Increase price! </button>
+      </div>
+
+    </div>
+  );
+}
 
 export default Product;
