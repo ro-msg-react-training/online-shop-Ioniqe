@@ -1,0 +1,22 @@
+    h1 {
+        color: rgb(240, 10, 100);
+        font-family: serif;
+        text-decoration: underline;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+    
+    h2 {
+        color: rgb(240, 176, 0);
+        font-family: serif;
+    }
+    
+    h3 {
+        color: rgb(88, 0, 59);
+        font-family: serif;
+    }
+    
+    .center {
+        margin: auto;
+        width: 20%;
+    }
