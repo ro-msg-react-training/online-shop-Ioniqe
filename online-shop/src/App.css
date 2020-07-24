@@ -25,3 +25,9 @@
         transform: rotate(360deg);
     }
 }
+
+.center {
+    padding: 3%;
+    margin: auto;
+    width: 25%;
+}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../Style.css';
+import Button from '@material-ui/core/Button';
+
 
 function Product(props: { name: string, category?: string, price: string }) {
   const initialPrice = Number(props.price.match('[0-9]+'));
@@ -9,13 +11,13 @@ function Product(props: { name: string, category?: string, price: string }) {
   const handleClick = () => increasePrice(newPrice => newPrice + 1);
 
   return (
-    <div className="center">
+    <div>
       <h2>Details for {props.name}:</h2>
       <h3>category: {props.category}</h3>
 
       <div>
         <h3>price: {newPrice} {currency}</h3>
-        <button onClick={handleClick}>Increase price! </button>
+        <Button variant="contained" color="primary" onClick={handleClick}> Increase price! </Button>
       </div>
 
     </div>
