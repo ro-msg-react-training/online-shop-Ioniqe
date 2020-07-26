@@ -3,13 +3,23 @@
         text-transform: uppercase;
         padding: 10px;
     }
-    /* 
-    h2 {
-        color: #0f192e;
-        font-family: serif;
+    
+    li {
+        display: inline;
     }
     
-    h3 {
-        color: #0f192e;
-        font-family: serif;
-    } */
+    nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        min-height: 10hv;
+        background: #48bfe3;
+        color: #ffffff;
+    }
+    
+    .nav-link {
+        list-style: none;
+        width: 10%;
+        justify-content: space-around;
+        align-items: center;
+    }
