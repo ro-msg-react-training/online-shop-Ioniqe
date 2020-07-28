@@ -30,7 +30,6 @@ const Stock: React.FC<StockProps> = ({ products }) => {
           <Button variant="contained" color="primary" onClick={() => gotoDetails(product.id)}> Details </Button>
         </div>
       )}
-
     </>
   );
 }

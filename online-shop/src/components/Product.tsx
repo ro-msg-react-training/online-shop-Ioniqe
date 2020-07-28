@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../Style.css';
 import Button from '@material-ui/core/Button';
-import { RouteComponentProps, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 interface IProduct {
   id: string,
@@ -10,18 +10,17 @@ interface IProduct {
   price: string,
 }
 
-function Product({ match }: RouteComponentProps<IProduct>) {
-
+// function Product({ match }: RouteComponentProps<IProduct>) {
+function Product({ match, addItemToCart }: any) {
   const history = useHistory();
 
   const mockData: IProduct = { id: "mock", name: "mock", category: "mock", price: "0" };
   const [uiForm, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    console.log("FETCHED")
     fetch('http://localhost:4000/products')
       .then(response => response.json())
-      .then(data => { setProducts(data); console.log(data) })
+      .then(data =>  setProducts(data))
   }, [])
 
 
@@ -32,18 +31,28 @@ function Product({ match }: RouteComponentProps<IProduct>) {
     }
   });
 
-  // const initialPrice = foundProduct ? Number(foundProduct.price) : 'Product is not available';
-  
-  //TODO: put quantity into IProduct
+
+  //----------------------------------INCREASE QUANTITY
   const [quantity, increaseQuantity] = useState(1);
   const handleClick = () => increaseQuantity(newQuantity => newQuantity + 1);
 
+  //-----------------------------------BACK
   let backButton = (): void => history.push("/products");
-  
-  var cart: string[] = [];
+
+  //-----------------------------------BUY
   let buyProduct = (): void => {
-    cart.push(foundProduct!.name);
-    console.log(cart);
+
+    // const productToAdd: IShoppingCartProduct = {productId: Number(foundProduct.id), quantity: quantity};
+    // addItemToCart(productToAdd);
+
+    addItemToCart(foundProduct, quantity);
+  }
+
+  //-----------------------------------DELETE
+  let deleteProduct = (): void => {
+    fetch('http://localhost:4000/products/' + foundProduct.id, {
+      method: 'DELETE',
+    })
   }
 
   return (
@@ -55,6 +64,7 @@ function Product({ match }: RouteComponentProps<IProduct>) {
 
       <Button variant="contained" color="primary" onClick={handleClick}> Increase quantity! </Button>
       <Button variant="contained" color="primary" onClick={buyProduct}> Buy </Button>
+      <Button variant="contained" color="primary" onClick={deleteProduct}> Delete </Button>
       <Button variant="contained" color="primary" onClick={backButton}> Back </Button>
     </>
   );

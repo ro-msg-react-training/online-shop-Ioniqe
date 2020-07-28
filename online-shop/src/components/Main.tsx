@@ -4,6 +4,7 @@ import Stock from './Stock';
 import Home from './Home';
 import Product from './Product';
 import '../Style.css';
+import ShoppingCart from './ShoppingCart';
 
 interface IProduct {
   id: string,
@@ -12,36 +13,60 @@ interface IProduct {
   price: string,
 }
 
+interface Ready {
+  id: number,
+  name: string,
+  category: string,
+  price: string,
+  quantity: number
+}
+
 interface IState {
-  uiForm: Array<IProduct>
+  uiForm: Array<IProduct>,
+  shoppingCartList: Ready[],
 }
 
 class Main extends React.Component<{}, IState> {
-  state: IState = {
-    uiForm: []
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      uiForm: [],
+      shoppingCartList: [],
+    };
   }
 
   componentDidMount() {
     fetch('http://localhost:4000/products')
       .then(response => response.json())
-      .then(data =>  this.setState({ uiForm: data }))
+      .then(data => this.setState({ uiForm: data }))
+  }
+
+  addProductToCart = (product: IProduct, newQuantity:number): void => {
+    const newAddition: Ready = {id: Number(product.id), name: product.name, category:product.category, price: product.price, quantity: newQuantity};
+
+    this.setState((state) => ({
+      uiForm: this.state.uiForm,
+      shoppingCartList: this.state.shoppingCartList.concat([newAddition]),
+    }));
+
   }
 
   render() {
     const { uiForm } = this.state;
-
-    // console.log(uiForm);
 
     return (
       <div className="center">
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/products'>
-            <div className="center">
-              <Stock products={uiForm} />
-            </div>
+            <Stock products={uiForm} />
           </Route>
-          <Route path='/products/:id' component={Product} />
+          {/* <Route path='/products/:id' component={Product} /> */}
+          <Route path='/products/:id' render={props => <Product match={props.match} addItemToCart={this.addProductToCart} />}></Route>
+          {/* <Route path='/shoppingCart' component={ShoppingCart}/> */}
+          <Route path='/shoppingCart'>
+            <ShoppingCart customer="doej" productList={this.state.shoppingCartList} />
+          </Route>
         </Switch>
       </div>
     );
