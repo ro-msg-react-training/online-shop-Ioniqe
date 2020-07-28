@@ -29,10 +29,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
-        <div>
           <Header/>
           <Main />
-        </div>
       </div>
     </ThemeProvider >
   );

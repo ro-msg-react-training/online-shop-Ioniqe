@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import { Button } from '@material-ui/core';
 
 interface Prod {
+  id: string,
   name: string,
   category: string,
-  price: string
+  price: string,
 }
 
 interface StockProps {
@@ -17,23 +18,20 @@ interface StockProps {
 const Stock: React.FC<StockProps> = ({ products }) => {
   const history = useHistory();
 
-  function gotoDetails(name: string) {
-    history.push("/products/" + name);
-  }
+  let gotoDetails = (id: string): void => history.push("/products/" + id);
 
   return (
-    <div>
+    <>
       {products.map((product) =>
-        <div key={product.name}>
+        <div key={product.id}>
           <h2>
             {product.name}
           </h2>
-          <Button variant="contained" color="primary" onClick={() => gotoDetails(product.name)}> Details </Button>
+          <Button variant="contained" color="primary" onClick={() => gotoDetails(product.id)}> Details </Button>
         </div>
       )}
 
-      {/* {products.map((product) => <Product key={product.id} id={product.id} name={product.name} category={product.category} price={product.price} />)} */}
-    </div>
+    </>
   );
 }
 

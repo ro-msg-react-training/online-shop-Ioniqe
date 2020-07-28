@@ -1,52 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Style.css';
 import Button from '@material-ui/core/Button';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
-import Data from "../data.json"
 
-interface Prod {
+interface IProduct {
+  id: string,
   name: string,
   category: string,
-  price: string
+  price: string,
 }
 
-function Product({ match }: RouteComponentProps<Prod>) {
+function Product({ match }: RouteComponentProps<IProduct>) {
+
   const history = useHistory();
-  const products = Data;
-  const found = products.find(x => x.name === match.params.name); //product
 
-  const initialPrice = Number(found!.price.match('[0-9]+'));
-  const currency = found!.price.match('[a-z]+');
+  const mockData: IProduct = { id: "mock", name: "mock", category: "mock", price: "0" };
+  const [uiForm, setProducts] = useState<IProduct[]>([]);
 
-  const [newPrice, increasePrice] = useState(initialPrice);
-  const handleClick = () => increasePrice(newPrice => newPrice + 1);
+  useEffect(() => {
+    console.log("FETCHED")
+    fetch('http://localhost:4000/products')
+      .then(response => response.json())
+      .then(data => { setProducts(data); console.log(data) })
+  }, [])
 
-  function backButton() {
-    history.push("/products");
-  }
 
-  var cart:string[] = [];
-  function buyProduct() {
-    cart.push(found!.name);
+  var foundProduct = mockData;
+  uiForm.forEach(product => {
+    if (Number(product.id) === Number(match.params.id)) {
+      foundProduct = product;
+    }
+  });
+
+  // const initialPrice = foundProduct ? Number(foundProduct.price) : 'Product is not available';
+  
+  //TODO: put quantity into IProduct
+  const [quantity, increaseQuantity] = useState(1);
+  const handleClick = () => increaseQuantity(newQuantity => newQuantity + 1);
+
+  let backButton = (): void => history.push("/products");
+  
+  var cart: string[] = [];
+  let buyProduct = (): void => {
+    cart.push(foundProduct!.name);
     console.log(cart);
-    alert("You bought " + found?.name);
   }
 
   return (
-    <div>
-      <div>
-        <h2>Details for {found!.name}:</h2>
-        <h3>category: {found!.category}</h3>
-        <h3>price: {newPrice} {currency}</h3>
-      </div>
+    <>
+      <h2>Details for {foundProduct.name}:</h2>
+      <h3>category: {foundProduct.category}</h3>
+      <h3>price: {foundProduct.price} </h3>
+      <h3>quantity: {quantity} </h3>
 
-      <div>
-        <Button variant="contained" color="primary" onClick={handleClick}> Increase price! </Button>
-        <Button variant="contained" color="primary" onClick={buyProduct}> Buy </Button>
-        <Button variant="contained" color="primary" onClick={backButton}> Back </Button>
-      </div>
-
-    </div>
+      <Button variant="contained" color="primary" onClick={handleClick}> Increase quantity! </Button>
+      <Button variant="contained" color="primary" onClick={buyProduct}> Buy </Button>
+      <Button variant="contained" color="primary" onClick={backButton}> Back </Button>
+    </>
   );
 }
 

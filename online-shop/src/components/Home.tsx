@@ -5,16 +5,14 @@ import { Button } from '@material-ui/core';
 function Home() {
   const history = useHistory();
 
-  function backButton() {
+  let backButton = (): void => {
     history.push("/products");
   }
 
   return (
-    <div>
+    <div className="center">
       <h1>Welcome to the shop!</h1>
-      <div className="center">
-        <Button variant="contained" color="primary" onClick={backButton}> Products </Button>
-      </div>
+      <Button variant="contained" color="primary" onClick={backButton}> Products </Button>
     </div>
   );
 }

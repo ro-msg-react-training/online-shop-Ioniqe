@@ -1,9 +1,9 @@
 [
-    { "name": "chocolate", "category": "sweets", "price": "22 lei" },
-    { "name": "candy", "category": "sweets", "price": "1 euro" },
-    { "name": "milk", "category": "dairy", "price": "3 lei" },
-    { "name": "cake", "category": "sweets", "price": "4 euro" },
-    { "name": "cheese", "category": "dairy", "price": "2 dollars" },
-    { "name": "lemonade", "category": "liquids", "price": "5 lei" },
-    { "name": "wine", "category": "liquids", "price": "10 euro" }
+    { "id": "0", "name": "chocolate", "category": "sweets", "price": "22" },
+    { "id": "1", "name": "candy", "category": "sweets", "price": "1" },
+    { "id": "2", "name": "milk", "category": "dairy", "price": "3" },
+    { "id": "3", "name": "cake", "category": "sweets", "price": "4" },
+    { "id": "4", "name": "cheese", "category": "dairy", "price": "2" },
+    { "id": "5", "name": "lemonade", "category": "liquids", "price": "5" },
+    { "id": "6", "name": "wine", "category": "liquids", "price": "10" }
 ]
