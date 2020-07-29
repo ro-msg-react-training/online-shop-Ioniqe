@@ -1,0 +1,14 @@
+    h1 {
+        text-transform: uppercase;
+    }
+    
+    li {
+        display: inline;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-around;
+        min-height: 10hv;
+        background: #48bfe3;
+    }
