@@ -7,7 +7,7 @@ import Header from './components/Header';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#a01441",
+      main: "#ffee93",
     },
     secondary: {
       main: "#001427",
@@ -18,7 +18,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => (
   {
     root: {
-      background: "linear-gradient(45deg, #56cfe1 20%, #80ffdb 60%)",
+      background: "linear-gradient(45deg, #56cfe1 30%, #80ffdb 50%)",
     },
   }
 ));

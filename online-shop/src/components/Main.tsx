@@ -48,7 +48,6 @@ class Main extends React.Component<{}, IState> {
       uiForm: this.state.uiForm,
       shoppingCartList: this.state.shoppingCartList.concat([newAddition]),
     }));
-
   }
 
   render() {
@@ -61,9 +60,7 @@ class Main extends React.Component<{}, IState> {
           <Route exact path='/products'>
             <Stock products={uiForm} />
           </Route>
-          {/* <Route path='/products/:id' component={Product} /> */}
           <Route path='/products/:id' render={props => <Product match={props.match} addItemToCart={this.addProductToCart} />}></Route>
-          {/* <Route path='/shoppingCart' component={ShoppingCart}/> */}
           <Route path='/shoppingCart'>
             <ShoppingCart customer="doej" productList={this.state.shoppingCartList} />
           </Route>

@@ -1,7 +1,5 @@
     h1 {
-        text-decoration: underline;
         text-transform: uppercase;
-        padding: 10px;
     }
     
     li {
@@ -11,15 +9,6 @@
     nav {
         display: flex;
         justify-content: space-around;
-        align-items: center;
         min-height: 10hv;
         background: #48bfe3;
-        color: #ffffff;
-    }
-    
-    .nav-link {
-        list-style: none;
-        width: 10%;
-        justify-content: space-around;
-        align-items: center;
     }

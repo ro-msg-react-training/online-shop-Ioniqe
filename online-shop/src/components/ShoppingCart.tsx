@@ -2,6 +2,13 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+
 interface Ready {
   id: number,
   name: string,
@@ -20,53 +27,85 @@ interface StockProps {
   productList: Ready[],
 };
 
+const useStyles = makeStyles({
+  table: {
+    minWidth: 500,
+    borderRadius: 10,
+    padding: '0 80px',
+    boxShadow: '0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)',
+  },
+});
+
 const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
   const history = useHistory();
 
+  let emptyCart = () : void => {
+    productList.splice(0, productList.length);
+  }
+
+  //-----------------------------------------------HOME
   let homeButton = (): void => {
     history.push("/");
   }
 
+  //-----------------------------------------------CHECKOUT
   let checkoutButton = (): void => {
     var products: Array<IShoppingCartProduct> = [];
 
-    productList.forEach(product => { 
+    productList.forEach(product => {
       products.push({ productId: product.id, quantity: product.quantity } as IShoppingCartProduct);
     });
 
     fetch('http://localhost:4000/orders', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json, text/plain, */*',
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ customer,  products })
+      body: JSON.stringify({ customer, products })
     }).then(response => {
       if (response.ok) {
-        console.log(response);
-        return;
+        // console.log(response);
+        alert("Success!");
+        emptyCart();
+        homeButton();
       } else {
         alert("Error");
       }
     })
   }
 
-  var element = productList === undefined ? "Shopping Cart empty" : productList.map((product) =>
-    <div key={product.id}>
-      <h2> user: {customer} </h2>
-      <h3> id: {product.id} </h3>
-      <h3> name: {product.name} </h3>
-      <h3> category: {product.category} </h3>
-      <h3> quantity: {product.quantity} </h3>
-    </div>
-  )
+  const classes = useStyles();
+  var displayTable =
+    <>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Product</TableCell>
+            <TableCell align="right">Category</TableCell>
+            <TableCell align="right">Quantity</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {productList.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell align="left">{product.name}</TableCell>
+              <TableCell align="right">{product.category}</TableCell>
+              <TableCell align="right">{product.quantity}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
 
   return (
     <>
-      <h1>You're a shopaholic, Harry</h1>
-      {element}
-      <Button variant="contained" color="primary" onClick={checkoutButton}> Checkout </Button>
-      <Button variant="contained" color="primary" onClick={homeButton}> Home </Button>
+      <h1>Your shopping cart</h1>
+      {displayTable}
+      <div style={{ padding: 10 }}>
+        <Button variant="contained" color="primary" style={{ left: '30%' }} onClick={checkoutButton}> Checkout </Button> &nbsp;&nbsp;&nbsp;
+        <Button variant="contained" color="primary" style={{ left: '30%' }} onClick={homeButton}> Home </Button>
+      </div>
     </>
   );
 }
