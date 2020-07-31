@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
 import React from 'react';
-import '../Style.css';
+// import '../Style.css';
 import { Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({

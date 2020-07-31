@@ -8,14 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
-
-interface Ready {
-  id: number,
-  name: string,
-  category: string,
-  price: string,
-  quantity: number
-}
+import { Ready } from '../types/types';
 
 interface IShoppingCartProduct {
   productId: number,
@@ -44,8 +37,8 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
   }
 
   //-----------------------------------------------HOME
-  let homeButton = (): void => {
-    history.push("/");
+  let gotoProducts = (): void => {
+    history.push("/products");
   }
 
   //-----------------------------------------------CHECKOUT
@@ -56,6 +49,7 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
       products.push({ productId: product.id, quantity: product.quantity } as IShoppingCartProduct);
     });
 
+    //TODO
     fetch('http://localhost:4000/orders', {
       method: 'POST',
       headers: {
@@ -68,7 +62,7 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
         // console.log(response);
         alert("Success!");
         emptyCart();
-        homeButton();
+        gotoProducts();
       } else {
         alert("Error");
       }
@@ -104,7 +98,7 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
       {displayTable}
       <div style={{ padding: 10 }}>
         <Button variant="contained" color="primary" style={{ left: '30%' }} onClick={checkoutButton}> Checkout </Button> &nbsp;&nbsp;&nbsp;
-        <Button variant="contained" color="primary" style={{ left: '30%' }} onClick={homeButton}> Home </Button>
+        <Button variant="contained" color="primary" style={{ left: '30%' }} onClick={gotoProducts}> Products </Button>
       </div>
     </>
   );
