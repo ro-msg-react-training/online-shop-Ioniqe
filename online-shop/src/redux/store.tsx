@@ -3,9 +3,7 @@ import rootReducer from "./rootReducer";
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
-import { ProductListState } from "./products/productReducer";
-
-// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)));
+// import { ProductListState } from "./products/productReducer";
 
 const logger = createLogger();
 const store = createStore(
@@ -18,8 +16,8 @@ const store = createStore(
   )
 )
 
-export interface AppState {
-  productList: ProductListState;
-}
+// export interface AppState {
+//   productList: ProductListState;
+// }
 
 export default store

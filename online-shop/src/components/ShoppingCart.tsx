@@ -10,6 +10,15 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import { Ready } from '../types/types';
 
+const useStyles = makeStyles({
+  table: {
+    minWidth: 500,
+    borderRadius: 10,
+    padding: '0 80px',
+    boxShadow: '0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)',
+  },
+});
+
 interface IShoppingCartProduct {
   productId: number,
   quantity: number,
@@ -19,15 +28,6 @@ interface StockProps {
   customer: string,
   productList: Ready[],
 };
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 500,
-    borderRadius: 10,
-    padding: '0 80px',
-    boxShadow: '0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)',
-  },
-});
 
 const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
   const history = useHistory();
@@ -43,7 +43,7 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
 
   //-----------------------------------------------CHECKOUT
   let checkoutButton = (): void => {
-    var products: Array<IShoppingCartProduct> = [];
+    let products: Array<IShoppingCartProduct> = [];
 
     productList.forEach(product => {
       products.push({ productId: product.id, quantity: product.quantity } as IShoppingCartProduct);
@@ -59,7 +59,6 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
       body: JSON.stringify({ customer, products })
     }).then(response => {
       if (response.ok) {
-        // console.log(response);
         alert("Success!");
         emptyCart();
         gotoProducts();
@@ -70,7 +69,7 @@ const ShoppingCart: React.FC<StockProps> = ({ customer, productList }) => {
   }
 
   const classes = useStyles();
-  var displayTable =
+  let displayTable =
     <>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>

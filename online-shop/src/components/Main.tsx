@@ -1,13 +1,11 @@
 import { Switch, Route } from 'react-router-dom'
 import React from 'react';
 import Home from './Home';
-import Product from './Product';
-// import '../Style.css';
 import ShoppingCart from './ShoppingCart';
-import EditProduct from './EditProduct';
 import StockContainer from '../containers/StockContainer';
 import { IProduct, Ready } from '../types/types';
-import NewProductContainer from '../containers/NewProductContainer';
+import ModifyProductContainer from '../containers/ModifyProductContainer';
+import ProductContainer from '../containers/ProductContainer';
 
 interface IState {
   shoppingCartList: Ready[],
@@ -34,19 +32,17 @@ class Main extends React.Component<{}, IState> {
     return (
       <div className="center">
         <Switch>
-        
           <Route exact path='/' component={Home} />
-          <Route exact path='/test' component={NewProductContainer}/>
+          {/* <Route exact path='/test/:id' component={ProductContainer} /> */}
+          <Route exact path='/product/:id' render={props => <ProductContainer match={props.match} addItemToCart={this.addProductToCart} />}></Route>
+          {/* <Route exact path='/test/:id'> <ProductContainer match={props.match} addItemToCart={this.addProductToCart} /> </Route> */}
+
+          <Route exact path='/modifyItem/:validation/:id' component={ModifyProductContainer}/>
           <Route exact path='/products' component={StockContainer} />
-          <Route exact path='/products/addNewItem/:validation/:id' render={props => <EditProduct match={props.match} />}></Route>
-          <Route exact path='/products/:id' render={props => <Product match={props.match} addItemToCart={this.addProductToCart} />}></Route>
+          {/* <Route exact path='/products/:id' render={props => <Product match={props.match} addItemToCart={this.addProductToCart} />}></Route> */}
           <Route exact path='/shoppingCart'>
             <ShoppingCart customer="doej" productList={this.state.shoppingCartList} />
           </Route>
-
-          <Route exact path='/products/editItem/:productId' render={props => <EditProduct match={props.match} />}></Route>
-          {/* ^this would be more elegant with :id instead of :productId but i'll leave it like that bc I understand better how (some specific) routes work */}
-
         </Switch>
       </div>
     );

@@ -1,35 +1,36 @@
-import { ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, ADD_PRODUCT_FAILURE } from "./newProductTypes"
 import { IProductDetailsReady } from "../../types/types"
+import { EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILURE } from "./editProductTypes"
 
-export const addProductRequest = (newProduct: IProductDetailsReady) => {
+export const editProductRequest = (newProduct: IProductDetailsReady) => {
   return {
-    type: ADD_PRODUCT_REQUEST,
+    type: EDIT_PRODUCT_REQUEST,
     payload: newProduct
   }
 }
 
-export const addProductSuccess = () => {
+export const editProductSuccess = () => {
   return {
-    type: ADD_PRODUCT_SUCCESS,
+    type: EDIT_PRODUCT_SUCCESS,
   }
 }
 
-export const addProductFailure = (error: string) => {
+export const editProductFailure = (error: string) => {
   return {
-    type: ADD_PRODUCT_FAILURE,
+    type: EDIT_PRODUCT_FAILURE,
     payload: error
   }
 }
 
-export const addProduct = (oldProduct: IProductDetailsReady) => {
+export const editProduct = (oldProduct: IProductDetailsReady) => {
   let productString = JSON.stringify({ oldProduct });
   let newProduct = productString.slice(14);
   newProduct = newProduct.slice(0, -1);
 
   return (dispatch: any) => { //this function doesn't have to be pure
-    dispatch(addProductRequest(oldProduct))
-    fetch('http://localhost:4000/products', {
-      method: 'POST',
+    dispatch(editProductRequest(oldProduct))
+
+    fetch(`http://localhost:4000/products/${oldProduct.id}`, {
+      method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -38,11 +39,11 @@ export const addProduct = (oldProduct: IProductDetailsReady) => {
     }).then(response => response.json())
       .then(data => {
         alert("The new product was saved!");
-        dispatch(addProductSuccess())
+        dispatch(editProductSuccess())
       })
       .catch(error => {
         const errorMsg = error.message
-        dispatch(addProductFailure(errorMsg))
+        dispatch(editProductFailure(errorMsg))
       })
   }
 }

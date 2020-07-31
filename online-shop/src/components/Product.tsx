@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Product({ match, addItemToCart }: any) {
+// function Product({ match, addItemToCart }: any) {
+function Product({ match } :any, {addItemToCart }: any) {
   const history = useHistory();
   const mockData: IProductDetails = { id: "mock", name: "mock", category: "mock", price: "0", image: "mock", description: "mock" };
   const [foundProduct, setProduct] = useState<IProductDetails>(mockData);
 
   //TODO
-  //fetch data from backend
   useEffect(() => {
     fetch(`http://localhost:4000/products/${match.params.id}`)
       .then(response => response.json())
@@ -49,7 +49,7 @@ function Product({ match, addItemToCart }: any) {
   let backButton = (): void => history.push("/products");
 
   //-----------------------------------EDIT
-  let editButton = (): void => history.push(`/products/editItem/${foundProduct.id}`);
+  let editButton = (): void => history.push(`/modifyItem/0/${foundProduct.id}`);
 
   //-----------------------------------BUY
   let buyProduct = (): void => {
@@ -69,7 +69,7 @@ function Product({ match, addItemToCart }: any) {
   }
 
   const classes = useStyles();
-  var displayDetails =
+  let displayDetails =
     <>
       <Box display="flex" justifyContent="center" m={1} p={1} bgcolor="background.paper">
         <img src={foundProduct.image} alt="" />

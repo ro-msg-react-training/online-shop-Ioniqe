@@ -1,9 +1,0 @@
-[
-    { "id": "0", "name": "chocolate", "category": "sweets", "price": "22" },
-    { "id": "1", "name": "candy", "category": "sweets", "price": "1" },
-    { "id": "2", "name": "milk", "category": "dairy", "price": "3" },
-    { "id": "3", "name": "cake", "category": "sweets", "price": "4" },
-    { "id": "4", "name": "cheese", "category": "dairy", "price": "2" },
-    { "id": "5", "name": "lemonade", "category": "liquids", "price": "5" },
-    { "id": "6", "name": "wine", "category": "liquids", "price": "10" }
-]
