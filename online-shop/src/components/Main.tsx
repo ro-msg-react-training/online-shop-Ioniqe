@@ -33,13 +33,9 @@ class Main extends React.Component<{}, IState> {
       <div className="center">
         <Switch>
           <Route exact path='/' component={Home} />
-          {/* <Route exact path='/test/:id' component={ProductContainer} /> */}
           <Route exact path='/product/:id' render={props => <ProductContainer match={props.match} addItemToCart={this.addProductToCart} />}></Route>
-          {/* <Route exact path='/test/:id'> <ProductContainer match={props.match} addItemToCart={this.addProductToCart} /> </Route> */}
-
           <Route exact path='/modifyItem/:validation/:id' component={ModifyProductContainer}/>
           <Route exact path='/products' component={StockContainer} />
-          {/* <Route exact path='/products/:id' render={props => <Product match={props.match} addItemToCart={this.addProductToCart} />}></Route> */}
           <Route exact path='/shoppingCart'>
             <ShoppingCart customer="doej" productList={this.state.shoppingCartList} />
           </Route>

@@ -80,6 +80,7 @@ function ModifyProductContainer(props: Props) {
 
     if (ok)
       chooseAction()
+    else alert("Input not good");
   }
 
 

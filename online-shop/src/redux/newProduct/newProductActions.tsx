@@ -22,9 +22,11 @@ export const addProductFailure = (error: string) => {
 }
 
 export const addProduct = (oldProduct: IProductDetailsReady) => {
-  let productString = JSON.stringify({ oldProduct });
-  let newProduct = productString.slice(14);
-  newProduct = newProduct.slice(0, -1);
+  // let productString = JSON.stringify({ oldProduct });
+  // let newProduct = productString.slice(14);
+  // newProduct = newProduct.slice(0, -1);
+
+  // console.log(JSON.stringify(newProduct));
 
   return (dispatch: any) => { //this function doesn't have to be pure
     dispatch(addProductRequest(oldProduct))
@@ -34,7 +36,7 @@ export const addProduct = (oldProduct: IProductDetailsReady) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: newProduct
+      body: JSON.stringify(oldProduct)
     }).then(response => response.json())
       .then(data => {
         alert("The new product was saved!");
