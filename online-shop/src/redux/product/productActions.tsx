@@ -1,7 +1,7 @@
 import { IProductDetailsReady } from "../../types/types"
 import {
   FETCH_PRODUCT_REQUEST, FETCH_PRODUCT_SUCCESS, FETCH_PRODUCT_FAILURE,
-  DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE
+  DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE, LOAD_PRODUCT, DELETE_PRODUCT
 } from "./productTypes"
 
 export const fetchProductRequest = () => {
@@ -44,38 +44,24 @@ export const deleteProductFailure = (error: string) => {
 }
 
 export const fetchProduct = (id: string) => {
-  console.log("ID: " + id);
-  return (dispatch: any) => { //this function doesn't have to be pure
-    dispatch(fetchProductRequest())
-    fetch(`http://localhost:4000/products/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchProductSuccess(data))
-      })
-      .catch(error => {
-        const errorMsg = error.message
-        dispatch(fetchProductFailure(errorMsg))
-      })
+  // console.log("ID: " + id);
+  return fetch(`http://localhost:4000/products/${id}`).then(response => response.json())
+}
+
+export const deleteProductAPI = (id: string) => {
+  return fetch(`http://localhost:4000/products/${id}`, { method: 'DELETE' })
+}
+
+export const loadProduct = (id: string) => {
+  return {
+    type: LOAD_PRODUCT,
+    payload: id
   }
 }
 
 export const deleteProduct = (id: string) => {
-  return (dispatch: any) => { //this function doesn't have to be pure
-
-    dispatch(deleteProductRequest())
-    // fetch(`http://localhost:4000/products/${id}`, {
-    //   method: 'DELETE',
-    // }).then(response => response.json())
-    //   .then(data => {
-    //     dispatch(deleteProductSuccess())
-    //   })
-    //   .catch(error => {
-    //     const errorMsg = error.message
-    //     dispatch(deleteProductFailure(errorMsg))
-    //   })
-
-    fetch(`http://localhost:4000/products/${id}`, {
-      method: 'DELETE',
-    })
+  return {
+    type: DELETE_PRODUCT,
+    payload: id
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { fetchStock } from '../redux';
+import { loadStock } from '../redux';
 import { connect } from 'react-redux'
 import { IProduct } from '../types/types';
 import StockDumb from '../components/StockDumb';
@@ -37,7 +37,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchProducts: () => dispatch(fetchStock())
+    fetchProducts: () => dispatch(loadStock())
   }
 }
 

@@ -23,8 +23,6 @@ const newProductReducer = (state = initialState, action: { type: string, payload
     case ADD_PRODUCT_SUCCESS:
       return {
         loading: false,
-        newProduct: action.payload,
-        error: ''
       }
     case ADD_PRODUCT_FAILURE:
       return {

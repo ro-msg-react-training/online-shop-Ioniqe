@@ -51,7 +51,7 @@ function ModifyProductContainer(props: Props) {
 
   let validateName = (): void => { name === "" ? nameValidator = false : nameValidator = true }
 
-  let verifyInput = (): void => {
+  let verifyInput = (): void => { //shitty way of verifying
     let ok = true;
     if (name === "") {
       ok = false;
@@ -82,7 +82,6 @@ function ModifyProductContainer(props: Props) {
       chooseAction()
     else alert("Input not good");
   }
-
 
   let makeProduct = (id: string, name: string, category: string, price: string, image: string, description: string): IProductDetailsReady => {
     const product: IProductDetailsReady = { id: Number(id), name: name, category: category, price: Number(price), image: image, description: description };

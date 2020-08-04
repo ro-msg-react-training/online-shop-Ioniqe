@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProduct, deleteProduct } from '../redux';
+import { deleteProduct, loadProduct } from '../redux';
 import { connect } from 'react-redux'
 import { IProductDetailsReady } from '../types/types';
 import { Container, CircularProgress, Box, Button } from '@material-ui/core';
@@ -90,7 +90,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchProductF: (id: string) => dispatch(fetchProduct(id)),
+    fetchProductF: (id: string) => dispatch(loadProduct(id)),
     deleteProductF: (id: string) => dispatch(deleteProduct(id))
   }
 }

@@ -1,4 +1,4 @@
-import { FETCH_STOCK_REQUEST, FETCH_STOCK_SUCCESS, FETCH_STOCK_FAILURE } from "./stockTypes"
+import { FETCH_STOCK_REQUEST, FETCH_STOCK_SUCCESS, FETCH_STOCK_FAILURE, LOAD_STOCK } from "./stockTypes"
 import { IProduct } from "../../types/types"
 
 
@@ -23,16 +23,11 @@ export const fetchStockFailure = (error: string) => {
 }
 
 export const fetchStock = () => {
-  return (dispatch: any) => { //this function doesn't have to be pure
-    dispatch(fetchStockRequest())
-    fetch('http://localhost:4000/products')
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchStockSuccess(data))
-      })
-      .catch(error => {
-        const errorMsg = error.message
-        dispatch(fetchStockFailure(errorMsg))
-      })
+  return fetch('http://localhost:4000/products').then(response => response.json())
+}
+
+export const loadStock = () => {
+  return {
+    type: LOAD_STOCK,
   }
 }

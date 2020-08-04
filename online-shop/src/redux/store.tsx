@@ -1,23 +1,15 @@
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./rootReducer";
-import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { createLogger } from 'redux-logger'
-// import { ProductListState } from "./products/productReducer";
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from "./rootSaga";
 
-const logger = createLogger();
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(
-    applyMiddleware(
-      thunk, // lets us dispatch() functions
-      logger // neat middleware that logs actions
-    )
-  )
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 )
 
-// export interface AppState {
-//   productList: ProductListState;
-// }
+sagaMiddleware.run(rootSaga);
 
 export default store

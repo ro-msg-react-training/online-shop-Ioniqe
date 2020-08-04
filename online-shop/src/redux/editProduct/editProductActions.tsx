@@ -1,10 +1,9 @@
 import { IProductDetailsReady } from "../../types/types"
-import { EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILURE } from "./editProductTypes"
+import { EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILURE, EDIT_PRODUCT } from "./editProductTypes"
 
-export const editProductRequest = (newProduct: IProductDetailsReady) => {
+export const editProductRequest = () => {
   return {
     type: EDIT_PRODUCT_REQUEST,
-    payload: newProduct
   }
 }
 
@@ -21,18 +20,29 @@ export const editProductFailure = (error: string) => {
   }
 }
 
-export const editProduct = (oldProduct: IProductDetailsReady) => {
-  // let productString = JSON.stringify({ oldProduct });
-  // let newProduct = productString.slice(14);
-  // newProduct = newProduct.slice(0, -1);
+export const editProductAPI = (oldProduct: IProductDetailsReady) => {
+  // return (dispatch: any) => { //this function doesn't have to be pure
+  //   dispatch(editProductRequest(oldProduct))
 
-  // console.log(JSON.stringify(oldProduct));
+  //   fetch(`http://localhost:4000/products/${oldProduct.id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(oldProduct)
+  //   }).then(response => response.json())
+  //     .then(data => {
+  //       alert("The new product was saved!");
+  //       dispatch(editProductSuccess())
+  //     })
+  //     .catch(error => {
+  //       const errorMsg = error.message
+  //       dispatch(editProductFailure(errorMsg))
+  //     })
+  // }
 
-
-  return (dispatch: any) => { //this function doesn't have to be pure
-    dispatch(editProductRequest(oldProduct))
-
-    fetch(`http://localhost:4000/products/${oldProduct.id}`, {
+  return fetch(`http://localhost:4000/products/${oldProduct.id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -40,13 +50,12 @@ export const editProduct = (oldProduct: IProductDetailsReady) => {
       },
       body: JSON.stringify(oldProduct)
     }).then(response => response.json())
-      .then(data => {
-        alert("The new product was saved!");
-        dispatch(editProductSuccess())
-      })
-      .catch(error => {
-        const errorMsg = error.message
-        dispatch(editProductFailure(errorMsg))
-      })
+      
+}
+
+export const editProduct = (oldProduct: IProductDetailsReady) => {
+  return {
+    type: EDIT_PRODUCT,
+    payload: oldProduct
   }
 }

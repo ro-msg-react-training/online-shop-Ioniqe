@@ -23,8 +23,6 @@ const editProductReducer = (state = initialState, action: { type: string, payloa
     case EDIT_PRODUCT_SUCCESS:
       return {
         loading: false,
-        newProduct: action.payload,
-        error: ''
       }
     case EDIT_PRODUCT_FAILURE:
       return {

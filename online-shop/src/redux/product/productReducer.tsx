@@ -38,12 +38,10 @@ const productReducer = (state = initialState, action: { type: string, payload: I
       }
     case DELETE_PRODUCT_SUCCESS:
       return {
-        loading: false,
-        error: ''
+        ...initialState,
       }
     case DELETE_PRODUCT_FAILURE:
       return {
-        loading: false,
         error: action.payload
       }
     default: return state

@@ -1,13 +1,13 @@
 import { IProduct } from "../../types/types"
 import { FETCH_STOCK_REQUEST, FETCH_STOCK_SUCCESS, FETCH_STOCK_FAILURE } from "./stockTypes"
 
-export interface ProductListState{
+export interface ProductListState {
   loading: boolean,
   products: IProduct[],
   error: string
 }
 
-const initialState:ProductListState = {
+const initialState: ProductListState = {
   loading: false,
   products: [],
   error: ''

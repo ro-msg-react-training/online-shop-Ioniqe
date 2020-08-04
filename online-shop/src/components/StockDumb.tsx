@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 
 const StockDumb: React.FC<StockProps> = ({ products }) => { //this should be StockDumb
   const history = useHistory();
-  // let gotoDetails = (id: string): void => history.push("/products/" + id);
   let gotoDetails = (id: string): void => history.push(`/product/${id}`);
   let goHome = (): void => history.push("/");
   let addProductButton = (): void => history.push("/modifyItem/-1/" + products.length);
